@@ -1,8 +1,4 @@
-package hu.bankmonitor.demo.sampleapp;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+package com.sample;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,10 +12,18 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+/**
+ * @author jacob.c
+ * @since 2016. 4. 18.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleAppApplication.class)
+@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-public class SampleAppApplicationIT {
+public class ApplicationIT {
 
 	@Autowired
 	private WebApplicationContext wac;
@@ -28,13 +32,11 @@ public class SampleAppApplicationIT {
 
 	@Before
 	public void setup() {
-
 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	}
 
 	@Test
 	public void testStatus_OK() throws Exception {
-
 		// @formatter:off
 		mockMvc.perform(get("/status")
 				.accept(MediaType.APPLICATION_JSON))
@@ -45,7 +47,6 @@ public class SampleAppApplicationIT {
 
 	@Test(expected = AssertionError.class)
 	public void testStatus_NOK_error() throws Exception {
-
 		// @formatter:off
 		mockMvc.perform(get("/status")
 				.accept(MediaType.APPLICATION_JSON))
